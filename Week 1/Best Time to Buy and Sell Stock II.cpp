@@ -1,31 +1,39 @@
-/* Link : https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/646/ */
-
-/*Given an array, rotate the array to the right by k steps, where k is non-negative.*/
+/*Link : https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/564/ */
 
 /*
-Input: nums = [1,2,3,4,5,6,7], k = 3
-Output: [5,6,7,1,2,3,4]
-Explanation:
-rotate 1 steps to the right: [7,1,2,3,4,5,6]
-rotate 2 steps to the right: [6,7,1,2,3,4,5]
-rotate 3 steps to the right: [5,6,7,1,2,3,4]
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+
+Find and return the maximum profit you can achieve.
+
+*/
+
+/*
+Input: prices = [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+Total profit is 4 + 3 = 7.
 */
 
 /* Solution */
-/*
-suppose array = [4,5,6,7,8],k=2;
-1. reverse the whole array = [8,7,6,5,4];
-2. reverse first k element = [7,8,6,5,4];
-3. reverse the all element after k elements = [7,8,4,5,6];
-*/
+
 
 class Solution {
 public:
-    void rotate(vector<int>& nums, int k) {
-        if(k > nums.size()) k%=nums.size();
-          reverse(nums.begin(),nums.end());
-          reverse(nums.begin(),nums.begin()+k);
-          reverse(nums.begin()+k,nums.end());
+    int maxProfit(vector<int>& prices) {
+        int minimum = prices[0],total = 0;
+        for(int i=1;i<prices.size();i++){
+            if(prices[i] - minimum > 0){
+             total += prices[i] - minimum;
+             minimum = prices[i];
+            }
+            else{
+                minimum = prices[i];
+            }
+        }
+        return total;
     }
 };
 
